@@ -7,9 +7,6 @@ on boot
     chmod 0644 /sys/class/backlight/panel0-backlight/max_brightness
 
 # Xiaomi backside shit
-    chown system system /sys/class/leds/white/blink
-    chown system system /sys/class/leds/white/brightness
-
     chown system system /sys/class/leds/red/blink
     chown system system /sys/class/leds/red/brightness
     chown system system /sys/class/leds/red/duty_pcts

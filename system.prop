@@ -83,6 +83,9 @@ media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 debug.stagefright.omx_default_rank.sw-audio=1
 debug.stagefright.omx_default_rank=0
 
+# QC framework value-adds
+ro.vendor.qti.va_aosp.support=1
+
 # Face Unlock
 ro.face.moto_unlock_service.cam_id=1
 

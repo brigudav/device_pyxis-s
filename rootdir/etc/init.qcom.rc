@@ -33,6 +33,7 @@ import /vendor/etc/init/hw/init.safailnet.rc
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug/tracing
 
     # Change ownership of hw_recovery related nodes
     chown system graphics /sys/kernel/debug/dri/0/debug/dump
@@ -43,9 +44,6 @@ on early-init
     # Change ownership of sw_sync node
     chown system graphics /sys/kernel/debug/sync/sw_sync
     chmod 0666 /sys/kernel/debug/sync/sw_sync
-
-    chown root system /dev/kmsg
-    chmod 0620 /dev/kmsg
 
 on init
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -84,7 +82,6 @@ on fs
 on post-fs
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    chmod 0755 /sys/kernel/debug/tracing
 
 on late-fs
     mount_all /vendor/etc/fstab.qcom --late
@@ -120,14 +117,9 @@ on early-boot
     chown system system /mnt/vendor/persist/sensors/registry/config
     chmod 0664 /mnt/vendor/persist/sensors/sensors_settings
 
-    chown system system /mnt/vendor/persist/data/pfm/licenses
-    chmod 0775 /mnt/vendor/persist/data/pfm/licenses
-
 on boot
     start rmt_storage
     start rfs_access
-    chown system system /sys/class/thermal/thermal_message/sconfig
-    write /sys/class/thermal/thermal_message/sconfig 10
 
     chown system system /sys/kernel/hbtp/display_pwr
 
@@ -190,9 +182,6 @@ on boot
     mkdir /mnt/vendor/persist/iar_db 0770 system system
     mkdir /mnt/vendor/spunvm 0770 system system
 
-    # Create WIGIG socket area
-    mkdir /dev/socket/wigig 0770 wifi wifi
-
     setprop wifi.interface wlan0
 
     setprop ro.telephony.call_ring.multiple false
@@ -213,44 +202,8 @@ on boot
     # Set the default message loglevel to KERN_INFO
     write /proc/sys/kernel/printk "6 6 1 7"
 
-    # Allow access for CCID command/response timeout configuration
-    chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
-
     # bond0 used by FST Manager
     chown wifi wifi /sys/class/net/bond0/bonding/queue_id
-
-    # Allow access to emmc rawdump block partition and dload sysfs node
-    chown root system /dev/block/bootdevice/by-name/rawdump
-    chmod 0660 /dev/block/bootdevice/by-name/rawdump
-    chown root system /sys/kernel/dload/emmc_dload
-    chmod 0660 /sys/kernel/dload/emmc_dload
-    chown root system /dev/block/bootdevice/by-name/ramdump
-    chmod 0660 /dev/block/bootdevice/by-name/ramdump
-    chown root system /sys/kernel/dload/dload_mode
-    chmod 0660 /sys/kernel/dload/dload_mode
-
-    chown system system /sys/class/backlight/panel0-backlight/brightness
-    chown system system /sys/class/backlight/panel0-backlight/max_brightness
-    chown system system /sys/class/backlight/panel1-backlight/brightness
-    chown system system /sys/class/backlight/panel1-backlight/max_brightness
-
-    # Allow access to sensors device attributes
-    chown system system /sys/class/sensors/MPU6050-accel/enable
-    chown system system /sys/class/sensors/MPU6050-accel/poll_delay
-    chown system system /sys/class/sensors/MPU6050-gyro/enable
-    chown system system /sys/class/sensors/MPU6050-gyro/poll_delay
-    chown system system /sys/class/sensors/apds9930-light/enable
-    chown system system /sys/class/sensors/apds9930-light/poll_delay
-    chown system system /sys/class/sensors/apds9930-proximity/enable
-    chown system system /sys/class/sensors/apds9930-proximity/poll_delay
-
-    # Add torch node for camera
-    chown system system /sys/class/leds/led:torch_0/brightness
-    chown system system /sys/class/leds/led:torch_1/brightness
-    chown system system /sys/class/leds/led:switch_0/brightness
-    chown system system /sys/class/leds/led:torch_2/brightness
-    chown system system /sys/class/leds/led:switch_1/brightness
-    chown system system /sys/class/leds/flashlight/brightness
 
     # Create directory used for display
     mkdir /mnt/vendor/persist/display 0770 system graphics
@@ -275,9 +228,6 @@ on post-fs-data
 
     mkdir /data/vendor/misc 01771 system system
 
-    # Create directory used for dump collection
-    mkdir /data/vendor/ssrdump 0770 root system
-
     # Create directory used by display clients
     mkdir /data/vendor/display 0770 system graphics
 
@@ -290,18 +240,14 @@ on post-fs-data
     # Create /data/vendor/tzstorage directory for SFS listener
     mkdir /data/vendor/tzstorage 0770 system system
 
-    # Create directory for apps access via QTEEConnector
-    mkdir /data/vendor/qtee 0770 system system
-
     # Create folder of camera
     mkdir /data/vendor/camera 0770 camera camera
 
     # Create directory for tftp
     mkdir /data/vendor/tombstones/rfs 0771 system system
 
-    mkdir /data/vendor/ramdump 0771 root system
+    # Create directory for bluetooth
     mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
-    mkdir /data/vendor/ramdump/bluetooth 0770 bluetooth bluetooth
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0770 wifi wifi
@@ -350,12 +296,6 @@ on post-fs-data
     chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
 
-    # Chown polling nodes as needed from UI running on system server
-    chown system system /sys/devices/platform/msm_sdcc.1/polling
-    chown system system /sys/devices/platform/msm_sdcc.2/polling
-    chown system system /sys/devices/platform/msm_sdcc.3/polling
-    chown system system /sys/devices/platform/msm_sdcc.4/polling
-
     # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
 
@@ -397,22 +337,6 @@ on post-fs-data
     chown radio radio /data/vendor/radio/qcril_prebuilt.db
     chmod 0660 /data/vendor/radio/qcril_prebuilt.db
 
-    # File flags for prebuilt ril db file
-    write /data/vendor/radio/prebuilt_db_support 1
-    chown radio radio /data/vendor/radio/prebuilt_db_support
-    chmod 0400 /data/vendor/radio/prebuilt_db_support
-    write /data/vendor/radio/db_check_done 0
-    chown radio radio /data/vendor/radio/db_check_done
-    chmod 0660 /data/vendor/radio/db_check_done
-
-    # QTI-logkit data
-    mkdir /data/vendor/qti-logkit/ 0771 system system
-    mkdir /data/vendor/qti-logkit/shared-privileged/ 2770 system system
-    mkdir /data/vendor/qti-logkit/shared-public/ 2770 system diag
-    mkdir /data/vendor/qti-logkit/socket-privileged/ 2770 system system
-    mkdir /data/vendor/qti-logkit/socket-public/ 2750 system diag
-    mkdir /data/vendor/qti-logkit/logdata/ 2750 system shell
-
     # Create SWAP related dirs
     mkdir /data/vendor/swap 0770 root system
     chmod 2770 /data/vendor/swap
@@ -442,31 +366,6 @@ on property:ro.vendor.iocgrp.config=1
     chmod 0664 /dev/blkio/bg/tasks
     write /dev/blkio/blkio.weight 1000
     write /dev/blkio/bg/blkio.weight 200
-
-on property:persist.vendor.sys.ssr.enable_debug=*
-    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.vendor.sys.ssr.enable_debug}
-
-on property:persist.vendor.sys.mba_boot_timeout=*
-    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.vendor.sys.mba_boot_timeout}
-
-on property:persist.vendor.sys.modem_auth_timeout=*
-    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.vendor.sys.modem_auth_timeout}
-
-on property:persist.vendor.sys.pil_proxy_timeout=*
-    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.vendor.sys.pil_proxy_timeout}
-
-on property:persist.vendor.ssr.enable_ramdumps=1 && property:ro.boot.mode!=charger
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
-    mkdir /data/vendor/ramdump_ssr 770 system system
-
-on property:persist.vendor.ssr.enable_ramdumps=0
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
-
-on property:persist.vendor.sys.rawdump_copy=1
-    write /sys/kernel/dload/emmc_dload 1
-
-on property:persist.vendor.sys.rawdump_copy=0
-    write /sys/kernel/dload/emmc_dload 0
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed"
@@ -540,21 +439,6 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service vendor.wigig_supplicant /vendor/bin/hw/wpa_supplicant \
-    -iwigig0 -Dnl80211 -c/data/vendor/wifi/wigig_supplicant.conf \
-    -m/data/vendor/wifi/wigig_p2p_supplicant.conf \
-    -O/data/vendor/wifi/wigig_sockets -dd \
-    -e/data/vendor/wifi/wigig_entropy.bin -g@android:wigig/wpa_wigig0 \
-    -S wigigsvc
-    #   we will start as root and wpa_supplicant will switch to user wifi
-    #   after setting up the capabilities required for WEXT
-    #   user wifi
-    #   group wifi inet keystore
-    class main
-    socket wigig/wpa_wigig0 dgram 660 wifi wifi
-    disabled
-    oneshot
-
 service vendor.cnss-daemon /vendor/bin/cnss-daemon -n -l
     class late_start
     user system
@@ -564,12 +448,6 @@ service vendor.cnss-daemon /vendor/bin/cnss-daemon -n -l
 on property:sys.shutdown.requested=*
     write /sys/kernel/shutdown_wlan/shutdown 1
     stop vendor.cnss-daemon
-
-service mlid /vendor/bin/mlid
-    class late_start
-    user gps
-    group gps
-    socket mlid stream 0666 gps gps
 
 service loc_launcher /vendor/bin/loc_launcher
     class late_start
@@ -591,21 +469,6 @@ service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqb
     user root
     group root
 
-# Set vendor-ril lib path based on Meta version
-on property:vendor.rild.libpath=*
-    setprop rild.libpath ${vendor.rild.libpath}
-
-on property:ro.vendor.radio.noril=*
-    setprop ro.radio.noril ${ro.vendor.radio.noril}
-
-# Set GPU Opengles version
-on property:vendor.opengles.version=*
-    setprop ro.opengles.version ${vendor.opengles.version}
-
-# Set gpu available frequencies property
-on property:vendor.gpu.available_frequencies=*
-    setprop ro.vendor.gpu.available_frequencies ${vendor.gpu.available_frequencies}
-
 service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@2.0-service
     override
     class hal
@@ -623,14 +486,6 @@ service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@2.0-service
     interface android.hardware.audio@5.0::IDevicesFactory default
     interface android.hardware.audio@4.0::IDevicesFactory default
     interface android.hardware.audio@2.0::IDevicesFactory default
-
-service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0-service
-    override
-    class hal
-    interface android.hardware.contexthub@1.0::IContexthub default
-    user system
-    group system
-    disabled
 
 service vendor.pd_mapper /vendor/bin/pd-mapper
     class core

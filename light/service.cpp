@@ -1,5 +1,6 @@
 /*
- * Copyright 2018 The LineageOS Project
+ * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2020 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,14 +25,13 @@
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 
-using android::hardware::light::V2_0::ILight;
 using android::hardware::light::V2_0::implementation::Light;
 
 using android::OK;
 using android::status_t;
 
 int main() {
-    android::sp<ILight> service = new Light();
+    android::sp<Light> service = new Light();
 
     configureRpcThreadpool(1, true);
 
@@ -41,7 +41,7 @@ int main() {
         return 1;
     }
 
-    LOG(INFO) << "Light HAL service ready.";
+    LOG(DEBUG) << "Light HAL service ready.";
 
     joinRpcThreadpool();
 

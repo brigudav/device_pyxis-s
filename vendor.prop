@@ -144,9 +144,6 @@ ro.vendor.audio.soundtrigger.hist.duration=1500
 # RCS
 persist.rcs.supported=0
 
-# Fwk detect
-ro.vendor.qti.va_aosp.support=1
-
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
 

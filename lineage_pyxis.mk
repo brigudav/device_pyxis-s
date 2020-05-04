@@ -10,6 +10,9 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # Inherit from pyxis device.
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
+# FOD
+TARGET_HAS_FOD := true
+
 # Device identifier. This must come after all inclusions.
 PRODUCT_DEVICE := pyxis
 PRODUCT_NAME := lineage_pyxis

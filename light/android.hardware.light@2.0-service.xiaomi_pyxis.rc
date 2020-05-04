@@ -7,10 +7,6 @@ on boot
     chmod 0644 /sys/class/backlight/panel0-backlight/max_brightness
 
 # Xiaomi backside shit
-
-    chown system system /sys/class/leds/white/brightness
-    chown system system /sys/class/leds/white/blink
-
     chown system system /sys/class/leds/red/blink
     chown system system /sys/class/leds/red/brightness
     chown system system /sys/class/leds/red/duty_pcts
@@ -44,6 +40,7 @@ on boot
     chmod 660 /sys/class/leds/red/pause_lo
     chmod 660 /sys/class/leds/red/ramp_step_ms
     chmod 660 /sys/class/leds/red/start_idx
+    chmod 660 /sys/class/leds/red/lut_flags
 
     chmod 660 /sys/class/leds/blue/blink
     chmod 660 /sys/class/leds/blue/duty_pcts
@@ -51,6 +48,7 @@ on boot
     chmod 660 /sys/class/leds/blue/pause_lo
     chmod 660 /sys/class/leds/blue/ramp_step_ms
     chmod 660 /sys/class/leds/blue/start_idx
+    chmod 660 /sys/class/leds/blue/lut_flags
 
     chmod 660 /sys/class/leds/green/blink
     chmod 660 /sys/class/leds/green/duty_pcts
@@ -58,6 +56,9 @@ on boot
     chmod 660 /sys/class/leds/green/pause_lo
     chmod 660 /sys/class/leds/green/ramp_step_ms
     chmod 660 /sys/class/leds/green/start_idx
+    chmod 660 /sys/class/leds/green/lut_flags
+
+    start vendor.light-hal-2-0
 
 service vendor.light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.xiaomi_pyxis
     interface android.hardware.light@2.0::ILight default
@@ -66,3 +67,4 @@ service vendor.light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.x
     group system
     # shutting off lights while powering-off
     shutdown critical
+    disabled

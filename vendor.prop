@@ -184,6 +184,9 @@ ro.vendor.fm.use_audio_session=true
 # Time
 persist.vendor.delta_time.enable=true
 
+# Media
+vendor.mm.enable.qcom_parser=50200575
+
 # Netmgr
 persist.vendor.data.iwlan.enable=true
 

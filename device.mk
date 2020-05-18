@@ -410,6 +410,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
 
+# Device-specific settings
+PRODUCT_PACKAGES += \
+    XiaomiParts
+
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \

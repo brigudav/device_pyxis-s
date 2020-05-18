@@ -139,10 +139,9 @@ PRODUCT_PACKAGES += \
     libdng_sdk.vendor \
     Snap
 
-# Consumerir
+# Consumer IR
 PRODUCT_PACKAGES += \
-    android.hardware.ir@1.0-impl \
-    android.hardware.ir@1.0-service
+    android.hardware.ir@1.0-service.xiaomi-pyxis
 
 # CNE
 PRODUCT_PACKAGES += \

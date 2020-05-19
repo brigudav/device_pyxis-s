@@ -80,8 +80,10 @@ ro.netflix.bsp_rev=Q670-14477-1
 
 # Media
 media.settings.xml=/vendor/etc/media_profiles_vendor.xml
+media.stagefright.thumbnail.prefer_hw_codecs=true
 debug.stagefright.omx_default_rank.sw-audio=1
 debug.stagefright.omx_default_rank=0
+vendor.mm.enable.qcom_parser=13631487
 
 # QC framework value-adds
 ro.vendor.qti.va_aosp.support=1

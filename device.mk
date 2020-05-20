@@ -207,6 +207,7 @@ PRODUCT_PACKAGES += \
     libbatterylistener \
     libcomprcapture \
     libexthwplugin \
+    libdynproc \
     libhdmiedid \
     libhfp \
     libaudio-resampler \

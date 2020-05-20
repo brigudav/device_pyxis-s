@@ -79,7 +79,7 @@ vendor.audio.noisy.broadcast.delay=600
 vendor.audio.offload.buffer.size.kb=64
 vendor.audio.offload.gapless.enabled=true
 vendor.audio.offload.multiaac.enable=true
-vendor.audio.offload.multiple.enabled=false
+vendor.audio.offload.multiple.enabled=true
 vendor.audio.offload.passthrough=false
 vendor.audio.offload.pstimeout.secs=3
 vendor.audio.offload.track.enable=false
@@ -98,6 +98,7 @@ persist.vendor.bt.aac_frm_ctl.enabled=true
 persist.vendor.bt.enable.splita2dp=true
 persist.vendor.qcom.bluetooth.enable.splita2dp=true
 persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac
+persist.vendor.qcom.bluetooth.twsp_state.enabled=false
 ro.bluetooth.a2dp_offload.supported=true
 vendor.qcom.bluetooth.soc=cherokee
 

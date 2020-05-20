@@ -102,4 +102,3 @@ ro.nfc.port=I2C
 # Fingerprint
 persist.vendor.sys.fp.fod.location.X_Y=445,1910
 persist.vendor.sys.fp.fod.size.width_height=190,190
-ro.hardware.fp.fod=true

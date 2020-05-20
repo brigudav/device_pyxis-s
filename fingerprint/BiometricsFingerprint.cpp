@@ -252,8 +252,9 @@ fingerprint_device_t* getDeviceForVendor(const char *class_name) {
 
 fingerprint_device_t* getFingerprintDevice() {
     fingerprint_device_t *fp_device;
+    std::string vendor_modules[] = { "fpc", "goodix", "goodix_fod", "syna" };
 
-    for (const auto& vendor : std::vector<std::string>{ "fpc", "goodix", "goodix_fod", "syna" }) {
+    for (const auto& vendor : vendor_modules) {
         if ((fp_device = getDeviceForVendor(vendor.c_str())) == nullptr) {
             ALOGE("Failed to load %s fingerprint module", vendor.c_str());
             continue;

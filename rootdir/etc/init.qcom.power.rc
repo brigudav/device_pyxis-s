@@ -49,7 +49,7 @@ on init
 
     # Add a cpuset for the camera daemon
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-7
+    write /dev/cpuset/camera-daemon/cpus 0-5
     write /dev/cpuset/camera-daemon/mems 0
     chown cameraserver cameraserver /dev/cpuset/camera-daemon
     chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
@@ -59,8 +59,11 @@ on boot
     # For cpusets initialize for Silver only first and then Silver + Gold
     # Silver only configuration cannot work with 0-7
     write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/background/cpus 4-5
-    write /dev/cpuset/system-background/cpus 2-5
+    write /dev/cpuset/foreground/cpus 1-6
+    write /dev/cpuset/background/cpus 1-4
+    write /dev/cpuset/system-background/cpus 0-4
+    write /dev/stune/top-app/schedtune.boost 10
+    write /sys/module/cpu_boost/parameters/sched_boost_on_input 1
 
     chown system system /sys/class/thermal/thermal_message/sconfig
     write /sys/class/thermal/thermal_message/sconfig 10
@@ -175,10 +178,6 @@ on enable-low-power
     # Enable userspace governor for L3 cdsp nodes
     write /sys/class/devfreq/soc:qcom,l3-cdsp/governor "userspace"
     chown system /sys/class/devfreq/soc:qcom,l3-cdsp/userspace/set_freq
-
-    # Set cpuset parameters
-    write /dev/cpuset/background/cpus 0-5
-    write /dev/cpuset/system-background/cpus 0-5
 
     # Turn off scheduler boost at the end
     write /proc/sys/kernel/sched_boost 0

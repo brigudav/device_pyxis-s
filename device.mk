@@ -296,6 +296,11 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
+# Codec2 modules
+PRODUCT_PACKAGES += \
+    com.android.media.swcodec \
+    libsfplugin_ccodec
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.3-service.xiaomi_pyxis

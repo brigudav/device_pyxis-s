@@ -143,7 +143,8 @@ PRODUCT_PACKAGES += \
 
 # Consumer IR
 PRODUCT_PACKAGES += \
-    android.hardware.ir@1.0-service.xiaomi_pyxis
+    android.hardware.ir@1.0-impl \
+    android.hardware.ir@1.0-service
 
 # CNE
 PRODUCT_PACKAGES += \

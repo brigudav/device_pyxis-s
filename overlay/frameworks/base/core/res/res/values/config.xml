@@ -1120,7 +1120,4 @@
     <bool name="config_dozePulsePickup">true</bool>
     <bool name="config_dozePulseTilt">true</bool>
     <bool name="config_dozePulseProximity">true</bool>
-
-    <!-- Whether to use scaled brightness (set -1 to disable) -->
-    <integer name="config_useScaleBrightness">2047</integer>
 </resources>

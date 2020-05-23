@@ -48,14 +48,6 @@ namespace V1_1 {
 namespace implementation {
 
 template <typename T>
-static T get(const std::string& path, const T& def) {
-    std::ifstream file(path);
-    T result;
-    file >> result;
-    return file.fail() ? def : result;
-}
-
-template <typename T>
 static void set(const std::string& path, const T& value) {
     std::ofstream file(path);
     file << value;
@@ -131,16 +123,7 @@ Return<void> FingerprintInscreen::setLongPressEnabled(bool) {
 }
 
 Return<int32_t> FingerprintInscreen::getDimAmount(int32_t brightness) {
-    float alpha;
-    int realBrightness = brightness * 2047 / 255;
-
-    if (realBrightness > 500) {
-        alpha = 1.0 - pow(realBrightness / 2047.0 * 430.0 / 600.0, 0.455);
-    } else {
-        alpha = 1.0 - pow(realBrightness / 1680.0, 0.455);
-    }
-
-    return 255 * alpha;
+    return 0;
 }
 
 Return<bool> FingerprintInscreen::shouldBoostBrightness() {

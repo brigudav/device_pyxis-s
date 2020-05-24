@@ -5,8 +5,8 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_pyxis.mk
+    $(LOCAL_DIR)/aosp_pyxis.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_pyxis-userdebug \
-    lineage_pyxis-user
+    aosp_pyxis-userdebug \
+    aosp_pyxis-user

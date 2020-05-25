@@ -1120,4 +1120,7 @@
     <bool name="config_dozePulsePickup">true</bool>
     <bool name="config_dozePulseTilt">true</bool>
     <bool name="config_dozePulseProximity">true</bool>
+
+    <!-- Device supports internal audio recording -->
+    <bool name="config_recorderInternalAudio">false</bool>
 </resources>

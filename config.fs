@@ -29,7 +29,13 @@ caps: BLOCK_SUSPEND
 mode: 0755
 user: AID_BLUETOOTH
 group: AID_BLUETOOTH
-caps: BLOCK_SUSPEND NET_ADMIN
+caps: NET_ADMIN BLOCK_SUSPEND
+
+[vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti-lazy]
+mode: 0755
+user: AID_BLUETOOTH
+group: AID_BLUETOOTH
+caps: NET_ADMIN BLOCK_SUSPEND
 
 [vendor/bin/pm-service]
 mode: 0755

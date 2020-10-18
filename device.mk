@@ -27,7 +27,8 @@ TARGET_BOOT_ANIMATION_RES := 1080
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-# FOD animations
+#crDroid Specific
+TARGET_HAS_FOD := true
 EXTRA_FOD_ANIMATIONS := true
 
 # Overlays

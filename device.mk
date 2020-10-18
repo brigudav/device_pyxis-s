@@ -28,7 +28,6 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # FOD animations
 EXTRA_FOD_ANIMATIONS := true
-TARGET_HAS_FOD := true
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \

@@ -45,7 +45,7 @@ void property_override_dual(char const system_prop[], char const vendor_prop[],
 void vendor_load_properties()
 {
     property_override("ro.build.description", "pyxis-user 10 QKQ1.190828.002 V11.0.1.0.QFCMIXM release-keys");
-    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "google/coral/coral:11/RP1A.201005.004/6782484:user/release-keys");
+    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "google/sunfish/sunfish:11/RP1A.201005.006/6828489:user/release-keys");
     property_override("ro.oem_unlock_supported", "0");
     property_override("ro.apex.updatable", "true");
     property_override("ro.control_privapp_permissions", "log");

@@ -1598,7 +1598,6 @@ typedef enum
    /**< GLONASS String 4 has been received */
 } Gnss_SvPolyStatusMaskType;
 
-
 typedef struct {
     uint32_t      size;
     uint16_t     gnssSvId;
@@ -2057,7 +2056,6 @@ typedef struct {
     uint16_t numOfEphemeris;
     GpsEphemeris qzssEphemerisData[GNSS_EPHEMERIS_LIST_MAX_SIZE_V02];
 } QzssEphemerisResponse;
-
 
 typedef struct {
     /** Indicates GNSS Constellation Type
